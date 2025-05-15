@@ -10,7 +10,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.examole.jikmutest.global.dto.CommonResponse;
 import com.examole.jikmutest.user.dto.request.CreateUserRequestDto;
+import com.examole.jikmutest.user.dto.request.LoginRequestDto;
 import com.examole.jikmutest.user.dto.response.CreateUserResponseDto;
+import com.examole.jikmutest.user.dto.response.LoginResponseDto;
 import com.examole.jikmutest.user.service.UserService;
 import com.examole.jikmutest.user.success.SuccessCode;
 
@@ -39,6 +41,18 @@ public class UserController {
 		return ResponseEntity
 			.created(location)
 			.body(new CommonResponse<>(SuccessCode.USER_SIGNUP, createUserResponseDto));
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<CommonResponse<LoginResponseDto>> login(
+		@RequestBody @Valid LoginRequestDto loginRequestDto
+	){
+
+		LoginResponseDto loginResponseDto = userService.login(loginRequestDto);
+
+		return ResponseEntity
+			.ok()
+			.body(new CommonResponse<>(SuccessCode.USER_LOGIN, loginResponseDto));
 	}
 
 }

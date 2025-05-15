@@ -16,6 +16,7 @@ public class CreateUserResponseDto {
 
 	private UUID id;
 	private String username;
+	private String password;
 	private String nickname;
 	private UserRole role;
 
@@ -24,6 +25,7 @@ public class CreateUserResponseDto {
 		return CreateUserResponseDto.builder()
 			.id(savedUser.getId())
 			.username(savedUser.getUsername())
+			.password(savedUser.getPassword())
 			.nickname(savedUser.getNickname())
 			.role(savedUser.getRole())
 			.build();

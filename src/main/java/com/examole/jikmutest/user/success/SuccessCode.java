@@ -9,7 +9,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum SuccessCode implements ServiceCode {
 
-	USER_SIGNUP(HttpStatus.CREATED, "회원가입에 성공했습니다.", "S_SIGNUP"),;
+	USER_SIGNUP(HttpStatus.CREATED, "회원가입에 성공했습니다.", "S_SIGNUP"),
+	USER_LOGIN(HttpStatus.OK, "로그인에 성공했습니다.", "S_LOGIN" ),;
 
 	private final HttpStatus status;
 	private final String message;

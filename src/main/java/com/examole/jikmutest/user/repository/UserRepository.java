@@ -22,4 +22,11 @@ public class UserRepository {
 		return memoryDb.values().stream()
 			.anyMatch(user -> user.getUsername().equals(username));
 	}
+
+	public User findByUsername(String username) {
+		return memoryDb.values().stream()
+			.filter(user -> user.getUsername().equals(username))
+			.findFirst()
+			.orElse(null); // 또는 Optional<User>로 반환해도 됨
+	}
 }
