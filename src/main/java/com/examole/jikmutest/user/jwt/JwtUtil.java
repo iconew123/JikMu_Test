@@ -41,7 +41,7 @@ public class JwtUtil {
 
 	public String createAccessToken(UUID userId, String userName, UserRole userRole) {
 
-		String token = Jwts.builder()
+		return Jwts.builder()
 			.setSubject(String.valueOf(userId))
 			.claim("userId", userId)
 			.claim("userName", userName)
@@ -50,8 +50,6 @@ public class JwtUtil {
 			.setExpiration(new Date(System.currentTimeMillis() + accessExpiration))
 			.signWith(key, SignatureAlgorithm.HS256)
 			.compact();
-
-		return BEARER_PREFIX + token;
 	}
 
 	public void validateToken(String token) {
