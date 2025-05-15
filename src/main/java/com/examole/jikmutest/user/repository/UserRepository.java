@@ -27,6 +27,6 @@ public class UserRepository {
 		return memoryDb.values().stream()
 			.filter(user -> user.getUsername().equals(username))
 			.findFirst()
-			.orElse(null); // 또는 Optional<User>로 반환해도 됨
+			.orElse(null);
 	}
 }
