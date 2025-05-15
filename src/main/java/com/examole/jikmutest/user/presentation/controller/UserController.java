@@ -20,16 +20,20 @@ import com.examole.jikmutest.user.application.dto.response.LoginResponseDto;
 import com.examole.jikmutest.user.application.service.UserService;
 import com.examole.jikmutest.user.application.success.SuccessCode;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "사용자", description = "사용자 API")
 public class UserController {
 
 	private final UserService userService;
 
 	@PostMapping("/signup")
+	@Operation(summary = "회원가입" , description = "회원가입시 초기 설정은 USER 로 역할 고정")
 	public ResponseEntity<CommonResponse<CreateUserResponseDto>> signup(
 		@RequestBody @Valid CreateUserRequestDto createUserRequestDto
 	){
@@ -48,6 +52,7 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
+	@Operation(summary = "로그인" , description = "유저 로그인 성공 시 AccessToken 발급")
 	public ResponseEntity<CommonResponse<LoginResponseDto>> login(
 		@RequestBody @Valid LoginRequestDto loginRequestDto
 	){
@@ -60,6 +65,7 @@ public class UserController {
 	}
 
 	@PatchMapping("/admin/users/{userId}/roles")
+	@Operation(summary = "ADMIN 권한 부여" , description = "ADMIN 권한 부여는 'ADMIN' 역할만 가능")
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<CommonResponse<ChangeRoleResponseDto>> changeRole(
 		@PathVariable String userId
