@@ -2,12 +2,15 @@ package com.examole.jikmutest.user.service;
 
 import java.util.UUID;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 import com.examole.jikmutest.global.exception.CustomApiException;
 import com.examole.jikmutest.user.dto.request.CreateUserRequestDto;
 import com.examole.jikmutest.user.dto.request.LoginRequestDto;
+import com.examole.jikmutest.user.dto.response.ChangeRoleResponseDto;
 import com.examole.jikmutest.user.dto.response.CreateUserResponseDto;
 import com.examole.jikmutest.user.dto.response.LoginResponseDto;
 import com.examole.jikmutest.user.entity.User;
@@ -56,7 +59,7 @@ public class UserService {
 		}
 
 		if (!passwordEncoder.matches(loginRequestDto.getPassword(), targetUser.getPassword())) {
-			throw new CustomApiException(UserException.INVALID_PASSWORD);
+			throw new CustomApiException(UserException.INVALID);
 		}
 
 		UUID userUuid = targetUser.getId();
@@ -68,5 +71,18 @@ public class UserService {
 		return LoginResponseDto.builder()
 			.token(accessToken)
 			.build();
+	}
+
+	public ChangeRoleResponseDto assignAdminRole(String username) {
+
+		User targetUser = userRepository.findByUsername(username);
+
+		if (targetUser == null) {
+			throw new CustomApiException(UserException.NOT_FOUND_USER);
+		}
+
+		targetUser.update(UserRole.ADMIN);
+
+		return ChangeRoleResponseDto.fromUser(targetUser);
 	}
 }

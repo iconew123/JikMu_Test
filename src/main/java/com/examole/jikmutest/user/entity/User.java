@@ -19,4 +19,8 @@ public class User {
 	private String password;
 	private String nickname;
 	private UserRole role;
+
+	public void update(UserRole userRole) {
+		this.role = userRole;
+	}
 }

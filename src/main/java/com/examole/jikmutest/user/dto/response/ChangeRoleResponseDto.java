@@ -12,20 +12,20 @@ import lombok.Getter;
 @Builder
 @Getter
 @AllArgsConstructor
-public class CreateUserResponseDto {
+public class ChangeRoleResponseDto {
 
 	private UUID id;
 	private String username;
 	private String nickname;
 	private UserRole role;
 
-	public static CreateUserResponseDto fromUser(User savedUser) {
+	public static ChangeRoleResponseDto fromUser(User targetUser) {
 
-		return CreateUserResponseDto.builder()
-			.id(savedUser.getId())
-			.username(savedUser.getUsername())
-			.nickname(savedUser.getNickname())
-			.role(savedUser.getRole())
+		return ChangeRoleResponseDto.builder()
+			.id(targetUser.getId())
+			.username(targetUser.getUsername())
+			.nickname(targetUser.getNickname())
+			.role(targetUser.getRole())
 			.build();
 	}
 }

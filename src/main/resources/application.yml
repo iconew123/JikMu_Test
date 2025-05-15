@@ -4,6 +4,10 @@ spring:
   config:
     import:
       - optional:file:.env[.properties]
+  security:
+    user:
+      name: disabled
+      password: disabled
 
 service:
   jwt:
