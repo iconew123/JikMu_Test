@@ -51,7 +51,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 			String role = claims.get("role", String.class);
 
 			UsernamePasswordAuthenticationToken authentication =
-				new UsernamePasswordAuthenticationToken(userId, null, List.of(new SimpleGrantedAuthority(role)));
+				new UsernamePasswordAuthenticationToken(userId, null, List.of(new SimpleGrantedAuthority("ROLE_" + role)));
 
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			log.info("인증 성공: userId={}, role={}", userId, role);
